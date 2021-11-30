@@ -28,6 +28,9 @@
  * 11/29/2021 - V0.9 - Initial version
  * 
  *
+ * Get updates from:
+ * https://github.com/csstup/SmartThings-CSS/blob/master/devicetypes/csstup/tuya-leak-sensor.src/tuya-leak-sensor.groovy 
+ *
  * Original DTH code/concepts taken from:
  *  SmartSense Moisture Sensor
  *
