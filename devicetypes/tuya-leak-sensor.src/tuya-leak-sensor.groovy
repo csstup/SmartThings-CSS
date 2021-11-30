@@ -28,7 +28,7 @@
  * 11/29/2021 - V0.9 - Initial version
  *
  * Get updates from:
- * https://github.com/csstup/SmartThings-CSS/blob/main/devicetypes/tuya-leak-sensor.src/tuya-leak-sensor.groovy
+ * https://github.com/csstup/SmartThings-CSS/blob/master/devicetypes/tuya-leak-sensor.src/tuya-leak-sensor.groovy
  * 
  *
  * Original DTH code/concepts taken from:
@@ -39,7 +39,7 @@ import physicalgraph.zigbee.clusters.iaszone.ZoneStatus
 import physicalgraph.zigbee.zcl.DataType
 
 metadata {
-        definition(name: "Tuya Leak Sensor", namespace: "smartthings", author: "coreystup@gmail.com", 
+        definition(name: "Tuya Leak Sensor", namespace: "csstup", author: "coreystup@gmail.com", 
                runLocally: false, minHubCoreVersion: '000.017.0012', executeCommandsLocally: false, 
                mnmn: "SmartThings", vid: "generic-leak", genericHandler: "Zigbee") {
                 capability "Configuration"
