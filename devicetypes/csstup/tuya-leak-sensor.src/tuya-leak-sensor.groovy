@@ -25,7 +25,8 @@
  *   Registers as an IAS device.    Water events are sent as an IAS zone status update for alarm 1.
  *
  * Update history:
- * 11/29/2021 - V0.9 - Initial version
+ * 11/29/2021 - V0.9   - Initial version
+ * 11/30/2021 - V0.9.1 - Added fingerprint for BlitzWolf BW-IS5
  * 
  *
  * Get updates from:
@@ -52,7 +53,9 @@ metadata {
                 attribute "lastCheckin", "String"
                 attribute "batteryVoltage", "String"
 
-                fingerprint endpointId: "01", profileId:"0104", inClusters: "0000,0001,0003,0500,EF01", outClusters: "0003,0019", model: "TS0207", manufacturer: "_TYZB01_sqmd19i1", deviceJoinName: "Tuya Leak Sensor" // TS0207
+                fingerprint endpointId: "01", profileId:"0104", inClusters: "0000,0001,0003,0500,EF01", outClusters: "0003,0019", model: "TS0207", manufacturer: "_TYZB01_sqmd19i1", deviceJoinName: "Tuya Leak Sensor"       // TS0207
+                fingerprint endpointId: "01", profileId:"0104", inClusters: "0000,0001,0003,0500,EF01", outClusters: "0003,0019", model: "TS0207", manufacturer: "_TYZB01_o63ssaah", deviceJoinName: "Blitzwolf Leak Sensor"  // BlitzWolf BW-IS5
+
         }
 
         simulator {
