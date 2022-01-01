@@ -22,7 +22,7 @@
  * 12/01/2021 - V0.9   - Initial version
  *
  * Get updates from:
- * https://github.com/csstup/SmartThings-CSS/blob/master/devicetypes/csstup/linkind-leak-sensor.src/linkind-leak-sensor.groovy 
+ * https://github.com/csstup/SmartThings-CSS/blob/master/devicetypes/csstup/linkind-leak-sensor.src/linkind-leak-sensor.groovy
  *
  * Original DTH code/concepts taken from:
  *  SmartSense Moisture Sensor
@@ -109,7 +109,7 @@ def parse(String description) {
         // parseDescriptionAsMap() can return additional attributes into the additionalAttrs map member
         Map descMap = zigbee.parseDescriptionAsMap(description)
         
-        logDebug "parse() descMap: ${descMap}"
+        // logDebug "parse() descMap: ${descMap}"
 
         if (descMap?.clusterInt == 0x0000 && descMap.value) {  // Basic cluster responses
             switch (descMap?.attrInt) {
@@ -124,7 +124,6 @@ def parse(String description) {
             }
         }
                
-
         if (descMap?.clusterInt == zigbee.POWER_CONFIGURATION_CLUSTER && descMap.commandInt != 0x07 && descMap.value) {
             // Multiple attributes can be encoded in descMap, pull them apart
             List<Map> descMaps = collectAttributes(descMap)
@@ -206,7 +205,7 @@ private Map getBatteryPercentageResult(rawValue) {
 private Map getMoistureResult(value) {
     def descriptionText
     if (value == "wet")
-    descriptionText = '{{ device.displayName }} is wet'
+        descriptionText = '{{ device.displayName }} is wet'
     else
         descriptionText = '{{ device.displayName }} is dry'
     return [
@@ -290,9 +289,8 @@ def formatDate(batteryReset) {
 
 // Replace an encoded text value in a map with actual text
 private updateAttributeTextValue(map) {
-
-	if (map?.encoding == "42") {  // text 
-    	def valueString = parseAttributeText(map?.value)
+    if (map?.encoding == "42") {  // text 
+        def valueString = parseAttributeText(map?.value)
         map.value = valueString
     }
 }
