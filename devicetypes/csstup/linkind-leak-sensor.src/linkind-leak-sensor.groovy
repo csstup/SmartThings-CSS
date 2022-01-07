@@ -20,6 +20,7 @@
  * 
  * Update history:
  * 12/01/2021 - V0.9   - Initial version
+ * 01/07/2022 - V0.91  - Added logging preferences
  *
  * Get updates from:
  * https://github.com/csstup/SmartThings-CSS/blob/master/devicetypes/csstup/linkind-leak-sensor.src/linkind-leak-sensor.groovy
@@ -52,10 +53,8 @@ metadata {
         }
 
         preferences {
-            input "debugOutput", "bool", 
-                title: "Enable debug logging?", 
-                defaultValue: true, 
-                required: false
+        	input name: "debugEnable", type: "bool", title: "Enable Debug Logging?", required: true, defaultValue: false
+        	input name: "infoEnable", type: "bool", title: "Enable Informational Logging?", required: true, defaultValue: true
         }
 
         tiles(scale: 2) {
@@ -95,7 +94,7 @@ def getBATTERY_VOLTAGE_ATTR() { 0x0020 }
 def getBATTERY_PERCENT_ATTR() { 0x0021 }
 
 def parse(String description) {
-    logDebug "parse() description: $description"
+    logTrace "parse() description: $description"
 
     // Determine current time and date in the user-selected date format and clock style
     def now = formatDate()    
@@ -109,7 +108,7 @@ def parse(String description) {
         // parseDescriptionAsMap() can return additional attributes into the additionalAttrs map member
         Map descMap = zigbee.parseDescriptionAsMap(description)
         
-        // logDebug "parse() descMap: ${descMap}"
+        logTrace "parse() descMap: ${descMap}"
 
         if (descMap?.clusterInt == 0x0000 && descMap.value) {  // Basic cluster responses
             switch (descMap?.attrInt) {
@@ -150,7 +149,7 @@ def parse(String description) {
     // For each item in the event list, create an actual event and append it to the result list.
     eventList.each {
         def event = createEvent(it)
-        log.info "${event.descriptionText}"
+        logInfo "${event.descriptionText}"
         result += event
     }
 
@@ -224,7 +223,7 @@ def ping() {
 }
 
 def refresh() {
-    logDebug "refresh() - Refreshing Values"
+    logDebug "refresh()"
     def refreshCmds = []
 
     refreshCmds += zigbee.readAttribute(zigbee.POWER_CONFIGURATION_CLUSTER, BATTERY_PERCENT_ATTR)
@@ -309,7 +308,17 @@ private String parseAttributeText(value) {
 }
 
 private logDebug(msg) {
-	if (settings?.debugOutput || settings?.debugOutput == null) {
+	if (settings?.debugEnable || settings?.debugEnable == null) {
 		log.debug "$msg"
 	}
+}
+
+private logInfo(msg) {
+	if (settings?.infoEnable || settings?.infoEnable == null) {
+		log.info "$msg"
+	}
+}
+
+private logTrace(msg) {
+	// log.trace "$msg"
 }
